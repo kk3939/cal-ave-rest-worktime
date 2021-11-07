@@ -8,7 +8,7 @@
   "scripts": {
     "fix:eslint": "eslint . --ext .js,.ts,.jsx,.tsx --fix",
     "fix:prettier": "prettier --write .",
-    "calculate": "run-s webpack:bundle webpack:node",
+    "calculate": "run-s calculate:bundle calculate:node",
     "calculate:bundle": "webpack",
     "calculate:node": "node dist/bundle.js",
     "dev": "ts-node src/index.ts",
