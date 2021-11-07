@@ -15,6 +15,7 @@ const workedTime: number = Math.floor(
   (today.getTime() - preMonth.getTime()) / 86400000
 );
 console.log(`先月10日から昨日までで${workedTime}日経過しました。`);
+console.log("~~~~~~~~~~~~~~~~~~~~~~~~~");
 // 土日の日数カウント
 const holidayNum: number = Math.floor(workedTime / 7) * holiday.length;
 // 半端な部分の中に土日が入っているか検証し、入っていたらremainedDayInHolidayNumを加算
@@ -35,12 +36,11 @@ const nationalHolidaysArray: Holiday[] | null = holiday_jp.between(
   today
 );
 
-const removeNationalHolidaysTime = returnRemoveNationalHolidayTime(
+const removeNationalHolidaysTime: number = returnRemoveNationalHolidayTime(
   nationalHolidaysArray,
   perDayWorkTime
 );
 
-console.log();
 console.log(
   `${
     Math.floor(perDayWorkTime * workedTime) -
@@ -49,8 +49,11 @@ console.log(
   }時間は働く必要がありました。`
 );
 
-const shouldWorkTime: number =
-  (nextMonth.getTime() - today.getTime()) / 86400000;
+const shouldWorkTime: number = Math.floor(
+  (nextMonth.getTime() - today.getTime()) / 86400000
+);
 console.log(
-  `次回の10日までに${Math.floor(shouldWorkTime)}時間は働く必要があります。`
+  `次回の10日までに${shouldWorkTime}日、${
+    shouldWorkTime * perDayWorkTime
+  }時間は働く必要があります。`
 );

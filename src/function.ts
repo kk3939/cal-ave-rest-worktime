@@ -17,7 +17,11 @@ export const returnRemoveNationalHolidayTime = (
   if (nationalHolidaysArray.length > 0) {
     const removeNationalHolidayTime: number =
       nationalHolidaysArray.length * perDayWorkTime;
-    console.log();
+    console.log(`祝日は${nationalHolidaysArray.length}日ありました。`);
+    nationalHolidaysArray.forEach((element) => {
+      console.log(`- ${element["name"]}`);
+    });
+    console.log("~~~~~~~~~~~~~~~~~~~~~~~~~");
     return removeNationalHolidayTime;
   }
   console.log("対象期間に祝日はありませんでした。");
