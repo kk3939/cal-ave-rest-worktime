@@ -37,13 +37,13 @@ const removeNationalHolidaysTime: number = returnRemoveNationalHolidayTime(
   nationalHolidaysArray,
   perDayWorkTime
 );
-console.log(
-  `${
-    Math.floor(perDayWorkTime * workedTime) -
-    removeHolidayTime -
-    removeNationalHolidaysTime
-  }時間は働く必要がありました。`
-);
+
+const shouldWorkTimeInPast: number =
+  Math.floor(perDayWorkTime * workedTime) -
+  removeHolidayTime -
+  removeNationalHolidaysTime;
+
+console.log(`${shouldWorkTimeInPast}時間は働く必要がありました。`);
 
 const shouldWorkDate: number = Math.floor(
   (nextMonth.getTime() - today.getTime()) / 86400000
@@ -54,8 +54,20 @@ const holidayNumfromTodayToNextMonth: number = checkContainedHoliday(
   today,
   holiday
 );
-const shouldRemoveworkTime =
+const shouldworkTimeForFuture: number =
   shoudWorkTime - holidayNumfromTodayToNextMonth * perDayWorkTime;
 console.log(
-  `次の10日の締め日までに働かなければいけない時間数は、${shouldRemoveworkTime}時間だ。`
+  `次の10日の締め日までに働かなければいけない時間数は、${shouldworkTimeForFuture}時間です。`
+);
+
+const sumShouldWorkTime: number =
+  shouldWorkTimeInPast + shouldworkTimeForFuture;
+// TODO:CLIツールにするためにこの部分を入力受け付けるようにする。
+const inputWorkTime = 160;
+const restShouldWorkTime: number = sumShouldWorkTime - inputWorkTime;
+const restShouldWorkTimePerDay =
+  restShouldWorkTime / (shouldWorkDate - holidayNumfromTodayToNextMonth);
+
+console.log(
+  `1日あたり平均${restShouldWorkTimePerDay}時間働かなければいけません。`
 );
