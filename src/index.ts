@@ -1,5 +1,8 @@
 import * as holiday_jp from "@holiday-jp/holiday_jp";
-import { returnRemoveNationalHolidayTime } from "./function";
+import {
+  checkContainedHoliday,
+  returnRemoveNationalHolidayTime,
+} from "./function";
 import { Holiday } from "./type";
 
 const today: Date = new Date();
@@ -19,28 +22,21 @@ console.log("~~~~~~~~~~~~~~~~~~~~~~~~~");
 // 土日の日数カウント
 const holidayNum: number = Math.floor(workedTime / 7) * holiday.length;
 // 半端な部分の中に土日が入っているか検証し、入っていたらremainedDayInHolidayNumを加算
-const remainedDay: number = Math.floor(workedTime % 7);
-let remainedDayInHolidayNum = 0;
-if (remainedDay > 0) {
-  const beginDay = preMonth.getDay();
-  for (let i = 0; i < remainedDay; i++) {
-    if (holiday.indexOf((beginDay + i) % 7) != -1) {
-      remainedDayInHolidayNum++;
-    }
-  }
-}
+const remainedDayInHolidayNum: number = checkContainedHoliday(
+  workedTime,
+  preMonth,
+  holiday
+);
 const removeHolidayTime: number =
   (holidayNum + remainedDayInHolidayNum) * perDayWorkTime;
 const nationalHolidaysArray: Holiday[] | null = holiday_jp.between(
   preMonth,
   today
 );
-
 const removeNationalHolidaysTime: number = returnRemoveNationalHolidayTime(
   nationalHolidaysArray,
   perDayWorkTime
 );
-
 console.log(
   `${
     Math.floor(perDayWorkTime * workedTime) -
@@ -49,11 +45,17 @@ console.log(
   }時間は働く必要がありました。`
 );
 
-const shouldWorkTime: number = Math.floor(
+const shouldWorkDate: number = Math.floor(
   (nextMonth.getTime() - today.getTime()) / 86400000
 );
+const shoudWorkTime = shouldWorkDate * perDayWorkTime;
+const holidayNumfromTodayToNextMonth: number = checkContainedHoliday(
+  shouldWorkDate,
+  today,
+  holiday
+);
+const shouldRemoveworkTime =
+  shoudWorkTime - holidayNumfromTodayToNextMonth * perDayWorkTime;
 console.log(
-  `次回の10日までに${shouldWorkTime}日、${
-    shouldWorkTime * perDayWorkTime
-  }時間は働く必要があります。`
+  `次の10日の締め日までに働かなければいけない時間数は、${shouldRemoveworkTime}時間だ。`
 );

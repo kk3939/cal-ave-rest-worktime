@@ -27,3 +27,21 @@ export const returnRemoveNationalHolidayTime = (
   console.log("対象期間に祝日はありませんでした。");
   return 0;
 };
+
+export const checkContainedHoliday = (
+  workedTime: number,
+  month: Date,
+  holiday: number[]
+) => {
+  const remainedDay: number = Math.floor(workedTime % 7);
+  let remainedDayInHolidayNum = 0;
+  if (remainedDay > 0) {
+    const beginDay = month.getDay();
+    for (let i = 0; i < remainedDay; i++) {
+      if (holiday.indexOf((beginDay + i) % 7) != -1) {
+        remainedDayInHolidayNum++;
+      }
+    }
+  }
+  return remainedDayInHolidayNum;
+};
