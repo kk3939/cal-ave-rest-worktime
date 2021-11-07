@@ -17,7 +17,7 @@ const nextMonth: Date = new Date(today.getFullYear(), today.getMonth(), 12);
 const workedTime: number = Math.floor(
   (today.getTime() - preMonth.getTime()) / 86400000
 );
-console.log(`先月10日から昨日までで${workedTime}日経過しました。`);
+console.log(`先月10日から昨日までで${workedTime}日経過しました。\n`);
 console.log("~~~~~~~~~~~~~~~~~~~~~~~~~");
 // 土日の日数カウント
 const holidayNum: number = Math.floor(workedTime / 7) * holiday.length;
@@ -65,9 +65,15 @@ const sumShouldWorkTime: number =
 // TODO:CLIツールにするためにこの部分を入力受け付けるようにする。
 const inputWorkTime = 160;
 const restShouldWorkTime: number = sumShouldWorkTime - inputWorkTime;
+console.log(
+  `\n入力された値から計算した結果、\n残り${
+    shouldWorkDate - holidayNumfromTodayToNextMonth
+  }日間で、${restShouldWorkTime}時間働かなければいけません。`
+);
+
 const restShouldWorkTimePerDay =
   restShouldWorkTime / (shouldWorkDate - holidayNumfromTodayToNextMonth);
 
 console.log(
-  `1日あたり平均${restShouldWorkTimePerDay}時間働かなければいけません。`
+  `すなわち、1日あたり平均${restShouldWorkTimePerDay}時間働かなければいけません。`
 );
