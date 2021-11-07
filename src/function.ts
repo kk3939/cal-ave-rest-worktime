@@ -21,7 +21,7 @@ export const returnRemoveNationalHolidayTime = (
     nationalHolidaysArray.forEach((element) => {
       console.log(`- ${element["name"]}`);
     });
-    console.log("~~~~~~~~~~~~~~~~~~~~~~~~~");
+    console.log("~~~~~~~~~~~~~~~~~~~~~~~~~\n");
     return removeNationalHolidayTime;
   }
   console.log("対象期間に祝日はありませんでした。");
