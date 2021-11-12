@@ -23,7 +23,7 @@ export const main = (workTime: string) => {
     nextDigit = 1;
   }
 
-  // 一日ずれているから10日を表すために11日に設定
+  // 一日ずれているから10日を表すために11に設定
   const preMonth: Date = new Date(
     today.getFullYear(),
     today.getMonth() + preDigit,
@@ -36,7 +36,6 @@ export const main = (workTime: string) => {
     today.getMonth() + nextDigit,
     12
   );
-  console.log(preMonth, nextMonth);
 
   // 先月10日から昨日までの経過日数
   const workedTime: number = Math.floor(
