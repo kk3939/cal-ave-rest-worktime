@@ -5,7 +5,9 @@
   "repository": "git@github.com:kk3939/boilerplate-ts.git",
   "author": "kk3939 <kyo51310@gmail.com>",
   "license": "MIT",
-  "bin": "bin/cli.js",
+  "bin": {
+    "cal-ave-rest-worktime": "bin/cli.js"
+  },
   "scripts": {
     "fix:eslint": "eslint . --ext .js,.ts,.jsx,.tsx --fix",
     "fix:prettier": "prettier --write .",
