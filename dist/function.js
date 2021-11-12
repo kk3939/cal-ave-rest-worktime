@@ -1,13 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.checkContainedHoliday = exports.returnRemoveNationalHolidayTime = exports.formatDate = void 0;
-const formatDate = (dt) => {
-    const y = dt.getFullYear();
-    const m = `00${dt.getMonth() + 1}`.slice(-2);
-    const d = `00${dt.getDate()}`.slice(-2);
-    return `${y}-${m}-${d}`;
-};
-exports.formatDate = formatDate;
+exports.returnShouldWorkDate = exports.returnShouldWorkTimeInPast = exports.returnHolidayNum = exports.returnPreNextMonth = exports.checkContainedHoliday = exports.returnRemoveNationalHolidayTime = void 0;
 const returnRemoveNationalHolidayTime = (nationalHolidaysArray, perDayWorkTime) => {
     if (nationalHolidaysArray === null) {
         return 0;
@@ -39,4 +32,40 @@ const checkContainedHoliday = (workedTime, month, holiday) => {
     return remainedDayInHolidayNum;
 };
 exports.checkContainedHoliday = checkContainedHoliday;
+const returnPreNextMonth = (today) => {
+    // 10日以前と以後で基準とする10日が異なるため、条件分岐で設定。
+    let preDigit;
+    let nextDigit;
+    if (today.getDate() < 10) {
+        preDigit = -1;
+        nextDigit = 0;
+    }
+    else {
+        preDigit = 0;
+        nextDigit = 1;
+    }
+    // 一日ずれているから10日を表すために11に設定
+    const preMonth = new Date(today.getFullYear(), today.getMonth() + preDigit, 11);
+    // 10日を含めたいから12に設定
+    const nextMonth = new Date(today.getFullYear(), today.getMonth() + nextDigit, 12);
+    return {
+        preMonth: preMonth,
+        nextMonth: nextMonth,
+    };
+};
+exports.returnPreNextMonth = returnPreNextMonth;
+const returnHolidayNum = (workedTime, holiday) => {
+    return Math.floor(workedTime / 7) * holiday.length;
+};
+exports.returnHolidayNum = returnHolidayNum;
+const returnShouldWorkTimeInPast = (perDayWorkTime, workedTime, removeHolidayTime, removeNationalHolidaysTime) => {
+    return (Math.floor(perDayWorkTime * workedTime) -
+        removeHolidayTime -
+        removeNationalHolidaysTime);
+};
+exports.returnShouldWorkTimeInPast = returnShouldWorkTimeInPast;
+const returnShouldWorkDate = (today, nextMonth) => {
+    return Math.floor((nextMonth.getTime() - today.getTime()) / 86400000);
+};
+exports.returnShouldWorkDate = returnShouldWorkDate;
 //# sourceMappingURL=function.js.map

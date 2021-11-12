@@ -5,3 +5,8 @@ export type Holiday = {
   name: string;
   name_en: string;
 };
+
+export type preNextMonth = {
+  preMonth: Date;
+  nextMonth: Date;
+};
