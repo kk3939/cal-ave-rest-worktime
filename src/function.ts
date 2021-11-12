@@ -1,11 +1,4 @@
-import { Holiday } from "./type";
-
-export const formatDate = (dt: Date): string => {
-  const y = dt.getFullYear();
-  const m = `00${dt.getMonth() + 1}`.slice(-2);
-  const d = `00${dt.getDate()}`.slice(-2);
-  return `${y}-${m}-${d}`;
-};
+import { Holiday, preNextMonth } from "./type";
 
 export const returnRemoveNationalHolidayTime = (
   nationalHolidaysArray: Holiday[] | null,
@@ -44,4 +37,56 @@ export const checkContainedHoliday = (
     }
   }
   return remainedDayInHolidayNum;
+};
+
+export const returnPreNextMonth = (today: Date): preNextMonth => {
+  // 10日以前と以後で基準とする10日が異なるため、条件分岐で設定。
+  let preDigit: number;
+  let nextDigit: number;
+  if (today.getDate() < 10) {
+    preDigit = -1;
+    nextDigit = 0;
+  } else {
+    preDigit = 0;
+    nextDigit = 1;
+  }
+
+  // 一日ずれているから10日を表すために11に設定
+  const preMonth: Date = new Date(
+    today.getFullYear(),
+    today.getMonth() + preDigit,
+    11
+  );
+
+  // 10日を含めたいから12に設定
+  const nextMonth: Date = new Date(
+    today.getFullYear(),
+    today.getMonth() + nextDigit,
+    12
+  );
+  return {
+    preMonth: preMonth,
+    nextMonth: nextMonth,
+  };
+};
+
+export const returnHolidayNum = (workedTime: number, holiday: number[]) => {
+  return Math.floor(workedTime / 7) * holiday.length;
+};
+
+export const returnShouldWorkTimeInPast = (
+  perDayWorkTime: number,
+  workedTime: number,
+  removeHolidayTime: number,
+  removeNationalHolidaysTime: number
+) => {
+  return (
+    Math.floor(perDayWorkTime * workedTime) -
+    removeHolidayTime -
+    removeNationalHolidaysTime
+  );
+};
+
+export const returnShouldWorkDate = (today: Date, nextMonth: Date) => {
+  return Math.floor((nextMonth.getTime() - today.getTime()) / 86400000);
 };
