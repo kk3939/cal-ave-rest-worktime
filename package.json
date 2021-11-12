@@ -1,7 +1,7 @@
 {
   "name": "boilerplate-ts",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "dist/bundle.js",
   "repository": "git@github.com:kk3939/boilerplate-ts.git",
   "author": "kk3939 <kyo51310@gmail.com>",
   "license": "MIT",

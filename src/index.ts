@@ -9,10 +9,33 @@ const today: Date = new Date();
 const perDayWorkTime = 8;
 // dayの番号で休日を表現（日曜と土曜）
 const holiday = [0, 6];
+
+// 10日以前と以後で基準とする10日が異なるため、条件分岐で設定。
+let preDigit: number;
+let nextDigit: number;
+if (today.getDate() < 10) {
+  preDigit = -1;
+  nextDigit = 0;
+} else {
+  preDigit = 0;
+  nextDigit = 1;
+}
+
 // 一日ずれているから10日を表すために11日に設定
-const preMonth: Date = new Date(today.getFullYear(), today.getMonth() - 1, 11);
+const preMonth: Date = new Date(
+  today.getFullYear(),
+  today.getMonth() + preDigit,
+  11
+);
+
 // 10日を含めたいから12に設定
-const nextMonth: Date = new Date(today.getFullYear(), today.getMonth(), 12);
+const nextMonth: Date = new Date(
+  today.getFullYear(),
+  today.getMonth() + nextDigit,
+  12
+);
+console.log(preMonth, nextMonth);
+
 // 先月10日から昨日までの経過日数
 const workedTime: number = Math.floor(
   (today.getTime() - preMonth.getTime()) / 86400000
