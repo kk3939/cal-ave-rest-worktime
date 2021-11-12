@@ -4,4 +4,4 @@ package.json
 package-lock.json
 tsconfig.json
 tsconfig.eslint.json
-webpack.config.js
+bin/cli.js
