@@ -91,6 +91,7 @@ export const main = (workTime: string, paidtime: string) => {
   const sumShouldWorkTime: number =
     shouldWorkTimeInPast + shouldworkTimeForFuture;
 
+  // TODO:土日にコマンドを実行した際のエスケープ処理実装
   console.log(shouldWorkDate);
   console.log(holidayNumfromTodayToNextMonth);
 
