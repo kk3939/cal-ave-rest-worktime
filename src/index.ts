@@ -9,7 +9,8 @@ import {
 } from "./function";
 import { Holiday } from "./type";
 
-export const main = (workTime: string) => {
+export const main = (workTime: string, paidtime: string) => {
+  const inputPaidTime = Number(paidtime);
   const inputWorkTime = Number(workTime);
   const today: Date = new Date();
   const perDayWorkTime = 8;
@@ -38,7 +39,7 @@ export const main = (workTime: string) => {
 
   // 減算すべき休日分の時間の合計
   const removeHolidayTime: number =
-    (holidayNum + remainedDayInHolidayNum) * perDayWorkTime;
+    (holidayNum + remainedDayInHolidayNum + inputPaidTime) * perDayWorkTime;
 
   // 前月から今日までの祝日を取得
   const nationalHolidaysArray: Holiday[] | null = holiday_jp.between(
@@ -89,6 +90,9 @@ export const main = (workTime: string) => {
 
   const sumShouldWorkTime: number =
     shouldWorkTimeInPast + shouldworkTimeForFuture;
+
+  console.log(shouldWorkDate);
+  console.log(holidayNumfromTodayToNextMonth);
 
   // これまで働いた時間を加味した今後働くべき時間
   const restShouldWorkTime: number = sumShouldWorkTime - inputWorkTime;

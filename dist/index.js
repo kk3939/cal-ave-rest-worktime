@@ -22,7 +22,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.main = void 0;
 const holiday_jp = __importStar(require("@holiday-jp/holiday_jp"));
 const function_1 = require("./function");
-const main = (workTime) => {
+const main = (workTime, paidtime) => {
+    const inputPaidTime = Number(paidtime);
     const inputWorkTime = Number(workTime);
     const today = new Date();
     const perDayWorkTime = 8;
@@ -39,7 +40,7 @@ const main = (workTime) => {
     // 半端な部分の中に土日が入っているか検証し、入っていたらremainedDayInHolidayNumを加算
     const remainedDayInHolidayNum = (0, function_1.checkContainedHoliday)(workedTime, preMonth, holiday);
     // 減算すべき休日分の時間の合計
-    const removeHolidayTime = (holidayNum + remainedDayInHolidayNum) * perDayWorkTime;
+    const removeHolidayTime = (holidayNum + remainedDayInHolidayNum + inputPaidTime) * perDayWorkTime;
     // 前月から今日までの祝日を取得
     const nationalHolidaysArray = holiday_jp.between(preMonth, today);
     // 祝日分の減算すべき値を取得して、コンソールに祝日一覧を出力
@@ -59,6 +60,8 @@ const main = (workTime) => {
             perDayWorkTime;
     console.log(`次の10日の締め日までに働かなければいけない時間数は、${shouldworkTimeForFuture}時間です。`);
     const sumShouldWorkTime = shouldWorkTimeInPast + shouldworkTimeForFuture;
+    console.log(shouldWorkDate);
+    console.log(holidayNumfromTodayToNextMonth);
     // これまで働いた時間を加味した今後働くべき時間
     const restShouldWorkTime = sumShouldWorkTime - inputWorkTime;
     console.log(`\n入力された値から計算した結果、\n残り${shouldWorkDate - holidayNumfromTodayToNextMonth}日間で、${restShouldWorkTime}時間働かなければいけません。`);
