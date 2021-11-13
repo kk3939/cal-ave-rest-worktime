@@ -5,3 +5,4 @@ package-lock.json
 tsconfig.json
 tsconfig.eslint.json
 bin/cli.js
+.eslintrc.js
