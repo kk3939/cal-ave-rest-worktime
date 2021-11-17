@@ -9,8 +9,13 @@ import {
 } from "./function";
 import { Holiday } from "./type";
 
-export const main = (workTime: string, paidtime: string) => {
-  const inputPaidTime = Number(paidtime);
+export const main = (
+  workTime: string,
+  prePaidtime: string,
+  fromNowAndOnPaidtime: string
+) => {
+  const inputFromNowAndOnPaidtime = Number(fromNowAndOnPaidtime);
+  const inputPrePaidtime = Number(prePaidtime);
   const inputWorkTime = Number(workTime);
   const today: Date = new Date();
   const perDayWorkTime = 8;
@@ -39,7 +44,7 @@ export const main = (workTime: string, paidtime: string) => {
 
   // 減算すべき休日分の時間の合計
   const removeHolidayTime: number =
-    (holidayNum + remainedDayInHolidayNum + inputPaidTime) * perDayWorkTime;
+    (holidayNum + remainedDayInHolidayNum + inputPrePaidtime) * perDayWorkTime;
 
   // 前月から今日までの祝日を取得
   const nationalHolidaysArray: Holiday[] | null = holiday_jp.between(
@@ -89,23 +94,26 @@ export const main = (workTime: string, paidtime: string) => {
   );
 
   const sumShouldWorkTime: number =
-    shouldWorkTimeInPast + shouldworkTimeForFuture;
-
-  // TODO:土日にコマンドを実行した際のエスケープ処理実装
-  console.log(shouldWorkDate);
-  console.log(holidayNumfromTodayToNextMonth);
+    shouldWorkTimeInPast +
+    shouldworkTimeForFuture -
+    inputFromNowAndOnPaidtime * perDayWorkTime;
 
   // これまで働いた時間を加味した今後働くべき時間
   const restShouldWorkTime: number = sumShouldWorkTime - inputWorkTime;
   console.log(
     `\n入力された値から計算した結果、\n残り${
-      shouldWorkDate - holidayNumfromTodayToNextMonth
+      shouldWorkDate -
+      holidayNumfromTodayToNextMonth -
+      inputFromNowAndOnPaidtime
     }日間で、${restShouldWorkTime}時間働かなければいけません。`
   );
 
   // 残りの期間、1日あたり働かなければいけない平均の時間
   const restShouldWorkTimePerDay =
-    restShouldWorkTime / (shouldWorkDate - holidayNumfromTodayToNextMonth);
+    restShouldWorkTime /
+    (shouldWorkDate -
+      holidayNumfromTodayToNextMonth -
+      inputFromNowAndOnPaidtime);
 
   console.log(
     `すなわち、1日あたり平均${restShouldWorkTimePerDay}時間働かなければいけません。`
