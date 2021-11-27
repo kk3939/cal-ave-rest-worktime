@@ -26,18 +26,20 @@ export const main = (
   const nextMonth: Date = returnPreNextMonth(today).nextMonth;
 
   // 先月10日から昨日までの経過日数
-  const workedTime: number = Math.floor(
+  const workedDateCount: number = Math.floor(
     (today.getTime() - preMonth.getTime()) / 86400000
   );
-  console.log(`先月10日から昨日までで${workedTime}日経過しました。\n`);
+  console.log(
+    `先月10日から昨日までで有給を除いて${workedDateCount}日経過しました。\n`
+  );
   console.log("~~~~~~~~~~~~~~~~~~~~~~~~~");
 
   // 土日の日数カウント
-  const holidayNum: number = returnHolidayNum(workedTime, holiday);
+  const holidayNum: number = returnHolidayNum(workedDateCount, holiday);
 
   // 半端な部分の中に土日が入っているか検証し、入っていたらremainedDayInHolidayNumを加算
   const remainedDayInHolidayNum: number = checkContainedHoliday(
-    workedTime,
+    workedDateCount,
     preMonth,
     holiday
   );
@@ -61,7 +63,7 @@ export const main = (
   // 今日までに働くべき合計の値を算出
   const shouldWorkTimeInPast: number = returnShouldWorkTimeInPast(
     perDayWorkTime,
-    workedTime,
+    workedDateCount,
     removeHolidayTime,
     removeNationalHolidaysTime
   );
