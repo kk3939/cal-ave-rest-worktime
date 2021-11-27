@@ -18,8 +18,8 @@ const returnRemoveNationalHolidayTime = (nationalHolidaysArray, perDayWorkTime) 
     return 0;
 };
 exports.returnRemoveNationalHolidayTime = returnRemoveNationalHolidayTime;
-const checkContainedHoliday = (workedTime, month, holiday) => {
-    const remainedDay = Math.floor(workedTime % 7);
+const checkContainedHoliday = (workedDateCount, month, holiday) => {
+    const remainedDay = Math.floor(workedDateCount % 7);
     let remainedDayInHolidayNum = 0;
     if (remainedDay > 0) {
         const beginDay = month.getDay();
@@ -54,12 +54,12 @@ const returnPreNextMonth = (today) => {
     };
 };
 exports.returnPreNextMonth = returnPreNextMonth;
-const returnHolidayNum = (workedTime, holiday) => {
-    return Math.floor(workedTime / 7) * holiday.length;
+const returnHolidayNum = (workedDateCount, holiday) => {
+    return Math.floor(workedDateCount / 7) * holiday.length;
 };
 exports.returnHolidayNum = returnHolidayNum;
-const returnShouldWorkTimeInPast = (perDayWorkTime, workedTime, removeHolidayTime, removeNationalHolidaysTime) => {
-    return (Math.floor(perDayWorkTime * workedTime) -
+const returnShouldWorkTimeInPast = (perDayWorkTime, workedDateCount, removeHolidayTime, removeNationalHolidaysTime) => {
+    return (Math.floor(perDayWorkTime * workedDateCount) -
         removeHolidayTime -
         removeNationalHolidaysTime);
 };

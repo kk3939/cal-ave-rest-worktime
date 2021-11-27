@@ -33,13 +33,13 @@ const main = (workTime, prePaidtime, fromNowAndOnPaidtime) => {
     const preMonth = (0, function_1.returnPreNextMonth)(today).preMonth;
     const nextMonth = (0, function_1.returnPreNextMonth)(today).nextMonth;
     // 先月10日から昨日までの経過日数
-    const workedTime = Math.floor((today.getTime() - preMonth.getTime()) / 86400000);
-    console.log(`先月10日から昨日までで${workedTime}日経過しました。\n`);
+    const workedDateCount = Math.floor((today.getTime() - preMonth.getTime()) / 86400000);
+    console.log(`先月10日から昨日までで有給を除いて${workedDateCount}日経過しました。\n`);
     console.log("~~~~~~~~~~~~~~~~~~~~~~~~~");
     // 土日の日数カウント
-    const holidayNum = (0, function_1.returnHolidayNum)(workedTime, holiday);
+    const holidayNum = (0, function_1.returnHolidayNum)(workedDateCount, holiday);
     // 半端な部分の中に土日が入っているか検証し、入っていたらremainedDayInHolidayNumを加算
-    const remainedDayInHolidayNum = (0, function_1.checkContainedHoliday)(workedTime, preMonth, holiday);
+    const remainedDayInHolidayNum = (0, function_1.checkContainedHoliday)(workedDateCount, preMonth, holiday);
     // 減算すべき休日分の時間の合計
     const removeHolidayTime = (holidayNum + remainedDayInHolidayNum + inputPrePaidtime) * perDayWorkTime;
     // 前月から今日までの祝日を取得
@@ -47,7 +47,7 @@ const main = (workTime, prePaidtime, fromNowAndOnPaidtime) => {
     // 祝日分の減算すべき値を取得して、コンソールに祝日一覧を出力
     const removeNationalHolidaysTime = (0, function_1.returnRemoveNationalHolidayTime)(nationalHolidaysArray, perDayWorkTime);
     // 今日までに働くべき合計の値を算出
-    const shouldWorkTimeInPast = (0, function_1.returnShouldWorkTimeInPast)(perDayWorkTime, workedTime, removeHolidayTime, removeNationalHolidaysTime);
+    const shouldWorkTimeInPast = (0, function_1.returnShouldWorkTimeInPast)(perDayWorkTime, workedDateCount, removeHolidayTime, removeNationalHolidaysTime);
     console.log(`${shouldWorkTimeInPast}時間は働く必要がありました。`);
     // 来月までの締め日までの日数を出力
     const shouldWorkDate = (0, function_1.returnShouldWorkDate)(today, nextMonth);
