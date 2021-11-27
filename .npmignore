@@ -1,0 +1,12 @@
+src/
+.eslintrc.js
+.eslintignore
+.prettierignore
+.jest.config.ts
+tsconfig.eslint.json
+tsconfig.json
+.github/
+.DS_Store
+node_modules/
+.vscode/
+jest.config.ts
