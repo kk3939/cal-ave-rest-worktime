@@ -1,10 +1,11 @@
 {
-  "name": "boilerplate-ts",
+  "name": "cal-ave-rest-worktime",
   "version": "1.0.0",
   "main": "dist/bundle.js",
   "repository": "git@github.com:kk3939/cal-ave-rest-worktime.git",
   "author": "kk3939 <kyo51310@gmail.com>",
   "license": "MIT",
+  "description": "you can confirm worktime you should do by the deadline.",
   "bin": {
     "cal-ave-rest-worktime": "bin/cli.js"
   },

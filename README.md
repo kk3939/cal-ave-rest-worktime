@@ -1,5 +1,7 @@
 # cul-ave-rest-worktime
 
+**this package is experimental!!**
+
 ## 📝 Overview
 
 このプログラムを実行すると、
