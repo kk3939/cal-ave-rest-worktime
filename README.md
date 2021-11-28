@@ -1,4 +1,4 @@
-# cul-ave-rest-worktime
+# cal-ave-rest-worktime
 
 **this package is experimental!!**
 
@@ -9,7 +9,7 @@
 
 フルフレックスの人が所定労働時間をどのくらいで満たせるかどうかを計算するのを助ける pkg です。
 
-## Usage
+## 📎 Usage
 
 ```
 $ cal-ave-rest-worktime
@@ -21,10 +21,8 @@ $ cal-ave-rest-worktime
 これまで働いた時間を記述することで、今後働くべき時間、
 1 日あたりの平均の働く時間を算出する。
 
-### Attention
+### Functions in development
 
-- 祝日と休日を考慮している。
-- 前後の有給に対応することで正味の値を算出。
 - 締め日の入力も今後対応
 
 ## 🛰 Tech
@@ -32,4 +30,5 @@ $ cal-ave-rest-worktime
 - Typescript
 - ESLint
 - prettier
-- webpack
+- @holiday-jp/holiday_jp
+- inquirer
