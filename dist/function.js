@@ -1,37 +1,10 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.returnShouldWorkDate = exports.returnShouldWorkTimeInPast = exports.returnHolidayNum = exports.returnPreNextMonth = exports.checkContainedHoliday = exports.returnRemoveNationalHolidayTime = void 0;
-const returnRemoveNationalHolidayTime = (nationalHolidaysArray, perDayWorkTime) => {
-    if (nationalHolidaysArray === null) {
-        return 0;
-    }
-    if (nationalHolidaysArray.length > 0) {
-        const removeNationalHolidayTime = nationalHolidaysArray.length * perDayWorkTime;
-        console.log(`祝日は${nationalHolidaysArray.length}日ありました。`);
-        nationalHolidaysArray.forEach((element) => {
-            console.log(`- ${element["name"]}`);
-        });
-        console.log("~~~~~~~~~~~~~~~~~~~~~~~~~\n");
-        return removeNationalHolidayTime;
-    }
-    console.log("対象期間に祝日はありませんでした。");
-    return 0;
+exports.returnShouldWorkTimeFuture = exports.returnShouldWorkDateNext = exports.returnShouldWorkTimeInPast = exports.returnRemoveNationalHolidayTime = exports.checkContainedHoliday = exports.returnHolidayNum = exports.returnPreNextMonth = exports.returnShouldWorkDatePre = void 0;
+const returnShouldWorkDatePre = (today, preMonth) => {
+    return Math.floor((today.getTime() - preMonth.getTime()) / 86400000);
 };
-exports.returnRemoveNationalHolidayTime = returnRemoveNationalHolidayTime;
-const checkContainedHoliday = (workedDateCount, month, holiday) => {
-    const remainedDay = Math.floor(workedDateCount % 7);
-    let remainedDayInHolidayNum = 0;
-    if (remainedDay > 0) {
-        const beginDay = month.getDay();
-        for (let i = 0; i < remainedDay; i++) {
-            if (holiday.indexOf((beginDay + i) % 7) != -1) {
-                remainedDayInHolidayNum++;
-            }
-        }
-    }
-    return remainedDayInHolidayNum;
-};
-exports.checkContainedHoliday = checkContainedHoliday;
+exports.returnShouldWorkDatePre = returnShouldWorkDatePre;
 const returnPreNextMonth = (today) => {
     // 10日以前と以後で基準とする10日が異なるため、条件分岐で設定。
     let preDigit;
@@ -58,14 +31,45 @@ const returnHolidayNum = (workedDateCount, holiday) => {
     return Math.floor(workedDateCount / 7) * holiday.length;
 };
 exports.returnHolidayNum = returnHolidayNum;
+const checkContainedHoliday = (workedDateCount, month, holiday) => {
+    const remainedDay = Math.floor(workedDateCount % 7);
+    let remainedDayInHolidayNum = 0;
+    if (remainedDay > 0) {
+        const beginDay = month.getDay();
+        for (let i = 0; i < remainedDay; i++) {
+            if (holiday.indexOf((beginDay + i) % 7) != -1) {
+                remainedDayInHolidayNum++;
+            }
+        }
+    }
+    return remainedDayInHolidayNum;
+};
+exports.checkContainedHoliday = checkContainedHoliday;
+const returnRemoveNationalHolidayTime = (nationalHolidaysArray, perDayWorkTime) => {
+    if (nationalHolidaysArray === null) {
+        return 0;
+    }
+    if (nationalHolidaysArray.length === 0) {
+        return 0;
+    }
+    const removeNationalHolidayTime = nationalHolidaysArray.length * perDayWorkTime;
+    return removeNationalHolidayTime;
+};
+exports.returnRemoveNationalHolidayTime = returnRemoveNationalHolidayTime;
 const returnShouldWorkTimeInPast = (perDayWorkTime, workedDateCount, removeHolidayTime, removeNationalHolidaysTime) => {
     return (Math.floor(perDayWorkTime * workedDateCount) -
         removeHolidayTime -
         removeNationalHolidaysTime);
 };
 exports.returnShouldWorkTimeInPast = returnShouldWorkTimeInPast;
-const returnShouldWorkDate = (today, nextMonth) => {
+const returnShouldWorkDateNext = (today, nextMonth) => {
     return Math.floor((nextMonth.getTime() - today.getTime()) / 86400000);
 };
-exports.returnShouldWorkDate = returnShouldWorkDate;
+exports.returnShouldWorkDateNext = returnShouldWorkDateNext;
+const returnShouldWorkTimeFuture = (perDayWorkTime, shouldWorkDate, removeHolidayTimeNext, removeNationalHolidaysTimeNext) => {
+    return (Math.floor(perDayWorkTime * shouldWorkDate) -
+        removeHolidayTimeNext -
+        removeNationalHolidaysTimeNext);
+};
+exports.returnShouldWorkTimeFuture = returnShouldWorkTimeFuture;
 //# sourceMappingURL=function.js.map
