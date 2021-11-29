@@ -4,12 +4,13 @@
 
 ## 📝 Overview
 
-このプログラムを実行すると、
-経過した日付から土日と祝日を考慮して、次の締め日までに働く必要のある平均時間を求めます。
+This program helpes you to calculate time to need to work by the deadline.
 
-フルフレックスの人が所定労働時間をどのくらいで満たせるかどうかを計算するのを助ける pkg です。
+You, who adopt full flextime system that you can decide worktime depending on the day but you must meet total working hours in month, can use this package.
 
 ## 📎 Usage
+
+Sorry, Questions are only Japanese.
 
 ```
 $ cal-ave-rest-worktime
@@ -18,12 +19,19 @@ $ cal-ave-rest-worktime
 ? 今日から次の締め日までに取得する予定の有給を入力してください！時間ではなく日で入力してください。
 ```
 
-これまで働いた時間を記述することで、今後働くべき時間、
-1 日あたりの平均の働く時間を算出する。
+Answer as following:
+
+1. Hours you worked by today
+2. Paidday you got from your company
+3. Paidday you will get by next month deadline
+
+All default value is zero.
+
+Based on your answers, It shows you average time that you should.
 
 ### Functions in development
 
-- 締め日の入力も今後対応
+- recieve deadline date value.(you whoes deadline is except 10th will be able to use this pkg.)
 
 ## 🛰 Tech
 
