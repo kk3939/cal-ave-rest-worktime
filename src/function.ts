@@ -1,9 +1,23 @@
 import { Holiday, preNextMonth } from "./type";
 
-export const returnShouldWorkDatePre = (today: Date, preMonth: Date) => {
+/**
+ * 前の10日から昨日までの経過日数を返す関数
+ * @param {Date} today
+ * @param {Date} preMonth
+ * @return {number} 先月10日から昨日までの経過日数
+ */
+export const returnShouldWorkDatePre = (
+  today: Date,
+  preMonth: Date
+): number => {
   return Math.floor((today.getTime() - preMonth.getTime()) / 86400000);
 };
 
+/**
+ * 前月の締め日と次の締め日を出力
+ * @param {Date} today
+ * @return {preNextMonth} オブジェクトで前の締め日後の11日と次の締め日10日を返す
+ */
 export const returnPreNextMonth = (today: Date): preNextMonth => {
   // 10日以前と以後で基準とする10日が異なるため、条件分岐で設定。
   let preDigit: number;
@@ -16,7 +30,7 @@ export const returnPreNextMonth = (today: Date): preNextMonth => {
     nextDigit = 1;
   }
 
-  // 一日ずれているから10日を表すために11に設定
+  // 一日ずれているから10日を表すために11日に設定
   const preMonth: Date = new Date(
     today.getFullYear(),
     today.getMonth() + preDigit,
@@ -29,16 +43,23 @@ export const returnPreNextMonth = (today: Date): preNextMonth => {
     today.getMonth() + nextDigit,
     12
   );
+
   return {
     preMonth: preMonth,
     nextMonth: nextMonth,
   };
 };
 
+/**
+ * 休日の数を出力、半端な数は含めない
+ * @param {number} workedDateCount
+ * @param {number[]} holiday
+ * @return {number} 休日の数(割り切れる部分での数なので、checkcontainedholidayと併用する必要あり)
+ */
 export const returnHolidayNum = (
   workedDateCount: number,
   holiday: number[]
-) => {
+): number => {
   return Math.floor(workedDateCount / 7) * holiday.length;
 };
 

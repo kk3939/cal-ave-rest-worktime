@@ -32,7 +32,6 @@ const main = (workTime, prePaidtime, fromNowAndOnPaidtime) => {
     const holiday = [0, 6];
     const preMonth = (0, function_1.returnPreNextMonth)(today).preMonth;
     const nextMonth = (0, function_1.returnPreNextMonth)(today).nextMonth;
-    // 先月10日から昨日までの経過日数
     const workedDateCount = (0, function_1.returnShouldWorkDatePre)(today, preMonth);
     // 土日の日数カウント
     const holidayNum = (0, function_1.returnHolidayNum)(workedDateCount, holiday);

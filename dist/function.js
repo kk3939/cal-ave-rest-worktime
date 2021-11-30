@@ -1,10 +1,21 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.returnShouldWorkTimeFuture = exports.returnShouldWorkDateNext = exports.returnShouldWorkTimeInPast = exports.returnRemoveNationalHolidayTime = exports.checkContainedHoliday = exports.returnHolidayNum = exports.returnPreNextMonth = exports.returnShouldWorkDatePre = void 0;
+/**
+ * 前の10日から昨日までの経過日数を返す関数
+ * @param {Date} today
+ * @param {Date} preMonth
+ * @return {number} 先月10日から昨日までの経過日数
+ */
 const returnShouldWorkDatePre = (today, preMonth) => {
     return Math.floor((today.getTime() - preMonth.getTime()) / 86400000);
 };
 exports.returnShouldWorkDatePre = returnShouldWorkDatePre;
+/**
+ * 前月の締め日と次の締め日を出力
+ * @param {Date} today
+ * @return {preNextMonth} オブジェクトで前の締め日後の11日と次の締め日10日を返す
+ */
 const returnPreNextMonth = (today) => {
     // 10日以前と以後で基準とする10日が異なるため、条件分岐で設定。
     let preDigit;
@@ -17,10 +28,12 @@ const returnPreNextMonth = (today) => {
         preDigit = 0;
         nextDigit = 1;
     }
-    // 一日ずれているから10日を表すために11に設定
+    // 一日ずれているから10日を表すために11日に設定
     const preMonth = new Date(today.getFullYear(), today.getMonth() + preDigit, 11);
     // 10日を含めたいから12に設定
     const nextMonth = new Date(today.getFullYear(), today.getMonth() + nextDigit, 12);
+    console.log(preMonth);
+    console.log(nextMonth);
     return {
         preMonth: preMonth,
         nextMonth: nextMonth,

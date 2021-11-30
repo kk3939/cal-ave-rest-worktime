@@ -9,7 +9,7 @@ import {
   returnShouldWorkTimeFuture,
   returnShouldWorkTimeInPast,
 } from "./function";
-import { Holiday } from "./type";
+import { Holiday, preNextMonth, Eight } from "./type";
 
 export const main = (
   workTime: string,
@@ -20,14 +20,11 @@ export const main = (
   const inputPrePaidtime = Number(prePaidtime);
   const inputWorkTime = Number(workTime);
   const today: Date = new Date();
-  const perDayWorkTime = 8;
-  // dayの番号で休日を表現（日曜と土曜）
-  const holiday: number[] = [0, 6];
-
-  const preMonth: Date = returnPreNextMonth(today).preMonth;
-  const nextMonth: Date = returnPreNextMonth(today).nextMonth;
-
-  // 先月10日から昨日までの経過日数
+  const perDayWorkTime: Eight = 8;
+  const holiday: number[] = [0, 6]; // dayの番号で休日を表現（日曜と土曜）
+  const monthObj: preNextMonth = returnPreNextMonth(today);
+  const preMonth: Date = monthObj.preMonth;
+  const nextMonth: Date = monthObj.nextMonth;
   const workedDateCount: number = returnShouldWorkDatePre(today, preMonth);
 
   // 土日の日数カウント
