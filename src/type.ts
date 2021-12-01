@@ -10,3 +10,4 @@ export type preNextMonth = {
   preMonth: Date;
   nextMonth: Date;
 };
+export type Eight = 8;
