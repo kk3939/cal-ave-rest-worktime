@@ -28,10 +28,10 @@ const main = (workTime, prePaidtime, fromNowAndOnPaidtime) => {
     const inputWorkTime = Number(workTime);
     const today = new Date();
     const perDayWorkTime = 8;
-    // dayの番号で休日を表現（日曜と土曜）
-    const holiday = [0, 6];
-    const preMonth = (0, function_1.returnPreNextMonth)(today).preMonth;
-    const nextMonth = (0, function_1.returnPreNextMonth)(today).nextMonth;
+    const holiday = [0, 6]; // dayの番号で休日を表現（日曜と土曜）
+    const monthObj = (0, function_1.returnPreNextMonth)(today);
+    const preMonth = monthObj.preMonth;
+    const nextMonth = monthObj.nextMonth;
     const workedDateCount = (0, function_1.returnShouldWorkDatePre)(today, preMonth);
     // 土日の日数カウント
     const holidayNum = (0, function_1.returnHolidayNum)(workedDateCount, holiday);

@@ -63,17 +63,23 @@ export const returnHolidayNum = (
   return Math.floor(workedDateCount / 7) * holiday.length;
 };
 
+/**
+ * あまりの部分に休日が含まれるかチェックし、数を返す
+ * @param {number} workedDateCount
+ * @param {Date} month
+ * @return {number} 休日の数(あまりの部分に休日が含まれるかチェックする)
+ */
 export const checkContainedHoliday = (
   workedDateCount: number,
   month: Date,
   holiday: number[]
-) => {
+): number => {
   const remainedDay: number = Math.floor(workedDateCount % 7);
   let remainedDayInHolidayNum = 0;
   if (remainedDay > 0) {
     const beginDay = month.getDay();
     for (let i = 0; i < remainedDay; i++) {
-      if (holiday.indexOf((beginDay + i) % 7) != -1) {
+      if (holiday.indexOf((beginDay + i) % 7) !== -1) {
         remainedDayInHolidayNum++;
       }
     }
@@ -81,6 +87,12 @@ export const checkContainedHoliday = (
   return remainedDayInHolidayNum;
 };
 
+/**
+ * 国民の祝日にperDayWorkTimeをかけて、その分の時間を算出する
+ * @param {Holiday[] | null} nationalHolidaysArray
+ * @param {number} perDayWorkTime
+ * @return {number} 休日の数(あまりの部分に休日が含まれるかチェックする)
+ */
 export const returnRemoveNationalHolidayTime = (
   nationalHolidaysArray: Holiday[] | null,
   perDayWorkTime: number
@@ -96,12 +108,20 @@ export const returnRemoveNationalHolidayTime = (
   return removeNationalHolidayTime;
 };
 
+/**
+ * 昨日までに働くべきだった時間を計算
+ * @param {number} perDayWorkTime
+ * @param {number} workedDateCount
+ * @param {number} removeHolidayTime
+ * @param {number} removeNationalHolidaysTime
+ * @return {number} 今まで働くべき時間数
+ */
 export const returnShouldWorkTimeInPast = (
   perDayWorkTime: number,
   workedDateCount: number,
   removeHolidayTime: number,
   removeNationalHolidaysTime: number
-) => {
+): number => {
   return (
     Math.floor(perDayWorkTime * workedDateCount) -
     removeHolidayTime -
@@ -109,16 +129,33 @@ export const returnShouldWorkTimeInPast = (
   );
 };
 
-export const returnShouldWorkDateNext = (today: Date, nextMonth: Date) => {
+/**
+ * 今日から次の締め日までの経過日数を計算する関数
+ * @param {Date} today
+ * @param {Date} nextMonth
+ * @return {number} 今日から次の締め日までの経過日数
+ */
+export const returnShouldWorkDateNext = (
+  today: Date,
+  nextMonth: Date
+): number => {
   return Math.floor((nextMonth.getTime() - today.getTime()) / 86400000);
 };
 
+/**
+ * 今日から働くべき時間
+ * @param {number} perDayWorkTime
+ * @param {number} workedDateCount
+ * @param {number} removeHolidayTimeNext
+ * @param {number} removeNationalHolidaysTimeNext
+ * @return {number} 今日から働くべき時間
+ */
 export const returnShouldWorkTimeFuture = (
   perDayWorkTime: number,
   shouldWorkDate: number,
   removeHolidayTimeNext: number,
   removeNationalHolidaysTimeNext: number
-) => {
+): number => {
   return (
     Math.floor(perDayWorkTime * shouldWorkDate) -
     removeHolidayTimeNext -
