@@ -1,16 +1,16 @@
 # cal-ave-rest-worktime
 
-**this package is experimental!!**
+**This package is in experiment!!**
 
 ## 📝 Overview
 
-This program helpes you to calculate time to need to work by the deadline.
+This program helps to calculate time needed to work until the next work deadline.
 
-You, who adopt full flextime system that you can decide worktime depending on the day but you must meet total working hours in month, can use this package.
+This package is for anyone who adopts full flextime system, where the work time per day can be decided flexibly, but must meet the total monthly working hours.
 
 ## 📎 Usage
 
-Sorry, Questions are only Japanese.
+Sorry, questions are only in Japanese.
 
 ```
 $ cal-ave-rest-worktime
@@ -21,17 +21,17 @@ $ cal-ave-rest-worktime
 
 Answer as following:
 
-1. Hours you worked by today
-2. Paidday you got from your company
-3. Paidday you will get by next month deadline
+1. Hours of work until today
+2. Number of paid holidays given from the company
+3. Number of paid holidays you will get by the next work deadline
 
 All default value is zero.
 
-Based on your answers, It shows you average time that you should.
+Based on the answers, it calculates the average time to work.
 
 ### Functions in development
 
-- recieve deadline date value.(you whoes deadline is except 10th will be able to use this pkg.)
+- receive deadline date value. (for now, work deadline is set to the 10th of each month.)
 
 ## 🛰 Tech
 
