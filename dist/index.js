@@ -79,4 +79,3 @@ const main = (workTime, prePaidtime, fromNowAndOnPaidtime) => {
     console.log(`すなわち、1日あたり平均${restShouldWorkAverageTimePerDay}時間働かなければいけません。`);
 };
 exports.main = main;
-//# sourceMappingURL=index.js.map

@@ -123,4 +123,3 @@ const returnShouldWorkTimeFuture = (perDayWorkTime, shouldWorkDate, removeHolida
         removeNationalHolidaysTimeNext);
 };
 exports.returnShouldWorkTimeFuture = returnShouldWorkTimeFuture;
-//# sourceMappingURL=function.js.map
